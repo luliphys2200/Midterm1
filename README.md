@@ -1,4 +1,4 @@
-h3. Midterm 1 for phys2200
+### Midterm 1 for phys2200
 
 This program approximates pi by summing a finite number of terms in the Leibniz series 
 and in the Bailey-Borwein-Plouffe series. The number of terms is determined by the 
