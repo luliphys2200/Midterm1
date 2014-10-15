@@ -4,9 +4,7 @@
 
 #include <stdio.h>
 
-// input is the number of terms to sum
-double
-pi_leibniz (int n)
+double pi_leibniz (int n)
 {
     // check for valid input
     if (n < 1)

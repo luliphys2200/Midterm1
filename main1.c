@@ -2,7 +2,7 @@
  * This program approximates pi by summing a finite number of terms in the Leibniz series 
  * and in the Bailey-Borwein-Plouffe series. The number of terms is determined by the 
  * error between the approximation and the provided constant. When the absolute error is
- * less than 10^(-6), the program stops calculating.
+ * less than 10^(-6), the program terminates.
  *
  * The program also keeps track of the amount of time each approximation takes to reach
  * the desired error. The approximation functions are called multiple times so that the total
@@ -30,7 +30,7 @@ int main (void)
     double pi;
     double error;
 
-    // start timing pi calculation procedure using Leibniz series
+    // record start time for Leibniz
     lti = clock ();
 
     int i1 = 0;
@@ -47,7 +47,7 @@ int main (void)
     }
     while (error > .000001);
 
-    // stop timer
+    // record end time for Leibniz
     ltf = clock ();
 
     // determine the number of terms of the leibniz series required to approximate pi with absolute error less than 10^(-6)
@@ -55,13 +55,16 @@ int main (void)
 
     printf ("\nApproximation of pi by Bailey-Borwein-Plouffe series:\n");
 
+    // record start time for bbp
     bti = clock ();
 
     int i2 = 0;
-
+    
+    // calculate the error in the Leibniz approximation of pi with inputs increasing by 1 in each loop
     do
     {
         i2 += 1;
+        // repeat the function call to get a better time/call estimate
         for (int j = 0; j < 30000000; j++)
             pi = pi_bbp (i2);
         error = fabs (pi - M_PI);
@@ -69,8 +72,10 @@ int main (void)
     }
     while (error > .000001);
 
+    // record end time for bbp
     btf = clock ();
 
+    // calculate run times
     t1 = (double) (ltf - lti) / CLOCKS_PER_SEC;
     t2 = (double) (btf - bti) / CLOCKS_PER_SEC;
 
