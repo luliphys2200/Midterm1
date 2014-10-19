@@ -30,14 +30,13 @@ int main (void)
     double pi;
     double error;
 
-    // record start time for Leibniz
-    lti = clock ();
-
     int i1 = 0;
 
     // calculate the error in the Leibniz approximation of pi with inputs increasing by 100000 in each loop
     do
     {
+        // record start time for Leibniz
+        lti = clock ();
         i1 += 100000;
         // repeat the function call to get a better time/call estimate
         for (int j = 0; j < 275; j++)
@@ -55,14 +54,13 @@ int main (void)
 
     printf ("\nApproximation of pi by Bailey-Borwein-Plouffe series:\n");
 
-    // record start time for bbp
-    bti = clock ();
-
     int i2 = 0;
     
     // calculate the error in the Leibniz approximation of pi with inputs increasing by 1 in each loop
     do
     {
+        // record start time for bbp
+        bti = clock ();
         i2 += 1;
         // repeat the function call to get a better time/call estimate
         for (int j = 0; j < 30000000; j++)
@@ -75,12 +73,13 @@ int main (void)
     // record end time for bbp
     btf = clock ();
 
-    // calculate run times
-    t1 = (double) (ltf - lti) / CLOCKS_PER_SEC;
-    t2 = (double) (btf - bti) / CLOCKS_PER_SEC;
+    // calculate times per function call
+    t1 = (double) (ltf - lti) / CLOCKS_PER_SEC / 275;
+    t2 = (double) (btf - bti) / CLOCKS_PER_SEC / 30000000;
+    double speedup = t1/t2;
 
     printf ("\n");
-    printf ("t1 and t2:\n %21f %21f\n\n", t1, t2);
+    printf ("t1, t2, speedup:\n %20f %20f %20f\n\n", t1, t2, speedup);
 
     return 0;
 }
